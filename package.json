@@ -21,9 +21,18 @@
     "test:e2e": "jest --config ./apps/gateway/test/jest-e2e.json"
   },
   "dependencies": {
+    "@apollo/gateway": "^2.3.2",
+    "@apollo/subgraph": "^2.3.2",
+    "@nestjs/apollo": "^10.2.0",
     "@nestjs/common": "^9.0.0",
+    "@nestjs/config": "^2.3.1",
     "@nestjs/core": "^9.0.0",
+    "@nestjs/graphql": "^10.2.0",
+    "@nestjs/mongoose": "^9.2.1",
     "@nestjs/platform-express": "^9.0.0",
+    "apollo-server-express": "^3.11.1",
+    "graphql": "^16.6.0",
+    "mongoose": "^6.10.0",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
     "rxjs": "^7.2.0"
@@ -68,7 +77,11 @@
     "coverageDirectory": "./coverage",
     "testEnvironment": "node",
     "roots": [
-      "<rootDir>/apps/"
-    ]
+      "<rootDir>/apps/",
+      "<rootDir>/libs/"
+    ],
+    "moduleNameMapper": {
+      "^@app/common(|/.*)$": "<rootDir>/libs/common/src/$1"
+    }
   }
 }
