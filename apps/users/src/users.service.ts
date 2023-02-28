@@ -1,11 +1,14 @@
 import { Injectable } from '@nestjs/common';
 import { CreateUserInput } from './dto/create-user.input';
 import { UpdateUserInput } from './dto/update-user.input';
+import { UserRepository } from './user.repository';
 
 @Injectable()
 export class UsersService {
-  create(createUserInput: CreateUserInput) {
-    return 'This action adds a new user';
+  constructor(private readonly userRepository: UserRepository){}
+
+  async create(createUserInput: CreateUserInput) {
+    return this.userRepository.create(createUserInput);
   }
 
   findAll() {
@@ -17,7 +20,7 @@ export class UsersService {
   }
 
   update(id: string, updateUserInput: UpdateUserInput) {
-    return `This action updates a #${id} user`;
+    return this.userRepository.findOneAndUpdate({_id: id}, updateUserInput);
   }
 
   remove(id: string) {
