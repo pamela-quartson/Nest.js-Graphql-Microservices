@@ -16,7 +16,7 @@ export class UsersService {
   }
 
   findOne(id: string) {
-    return `This action returns a #${id} user`;
+    return this.userRepository.findOne({_id: id});
   }
 
   update(id: string, updateUserInput: UpdateUserInput) {
@@ -24,6 +24,6 @@ export class UsersService {
   }
 
   remove(id: string) {
-    return `This action removes a #${id} user`;
+    return this.userRepository.findOneAndDelete({_id: id});
   }
 }

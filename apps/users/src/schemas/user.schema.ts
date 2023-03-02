@@ -1,5 +1,5 @@
 import { AbstractDocument } from "@app/common";
-import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
+import { Prop, SchemaFactory } from "@nestjs/mongoose";
 
 export class User extends AbstractDocument {
     @Prop()

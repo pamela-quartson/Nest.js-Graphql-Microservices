@@ -73,6 +73,17 @@ export abstract class AbstractRepository<TDocument extends AbstractDocument> {
     return this.model.find(filterQuery, {}, { lean: true });
   }
 
+  async findOneAndDelete(filterQuery: FilterQuery<TDocument>) {
+    const document = this.model.find(filterQuery);
+
+    if (!document) {
+      this.logger.warn('Document not found with filterQuery', filterQuery);
+      throw new NotFoundException('Document not found.');
+    }
+    
+    return document.deleteOne(filterQuery)
+  }
+
   async startTransaction() {
     const session = await this.connection.startSession();
     session.startTransaction();
