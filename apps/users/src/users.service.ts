@@ -8,7 +8,7 @@ export class UsersService {
   constructor(private readonly userRepository: UserRepository){}
 
   async create(createUserInput: CreateUserInput) {
-    return this.userRepository.create(createUserInput);
+    return this.userRepository.create(JSON.parse(JSON.stringify(createUserInput)));
   }
 
   findAll() {

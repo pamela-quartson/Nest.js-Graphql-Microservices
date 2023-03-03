@@ -15,19 +15,28 @@ export abstract class AbstractRepository<TDocument extends AbstractDocument> {
   constructor(
     protected readonly model: Model<TDocument>,
     private readonly connection: Connection,
-  ) {}
-
+  ) {
+  }
   async create(
     document: Omit<TDocument, '_id'>,
     options?: SaveOptions,
   ): Promise<TDocument> {
+    
     const createdDocument = new this.model({
-      ...document,
       _id: new Types.ObjectId(),
+      ...document,
     });
-    return (
+    
+    const doc = (
       await createdDocument.save(options)
     ).toJSON() as unknown as TDocument;
+
+    console.log(doc);
+    
+    // const data = (await this.model.find({_id: doc._id}))
+    // console.log(data);
+    
+    return doc;
   }
 
   async findOne(filterQuery: FilterQuery<TDocument>): Promise<TDocument> {
@@ -74,14 +83,14 @@ export abstract class AbstractRepository<TDocument extends AbstractDocument> {
   }
 
   async findOneAndDelete(filterQuery: FilterQuery<TDocument>) {
-    const document = this.model.find(filterQuery);
+    const document = this.model.findOneAndDelete(filterQuery);
 
     if (!document) {
       this.logger.warn('Document not found with filterQuery', filterQuery);
       throw new NotFoundException('Document not found.');
     }
     
-    return document.deleteOne(filterQuery)
+    return document
   }
 
   async startTransaction() {
