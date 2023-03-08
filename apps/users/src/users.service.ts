@@ -21,7 +21,6 @@ export class UsersService {
     try {
         user = await this.userRepository.findOne({email: createUserInput.email}, {password: 0});
     } catch (err) {
-        console.log(err);
         throw new BadRequestException(err.message, { cause: err, description: err.message })
     }
     if (user) {
