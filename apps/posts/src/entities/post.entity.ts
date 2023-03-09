@@ -1,13 +1,13 @@
 import { ObjectType, Field } from '@nestjs/graphql';
 
 @ObjectType()
-export class User {
+export class Post {
   @Field()
   _id: string;
-
   @Field()
-  email: string;
-
+  title: string;
   @Field()
-  password: string;
+  text: string;
+  @Field()
+  likes: number;
 }
