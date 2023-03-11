@@ -1,8 +1,9 @@
-import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Args, ResolveField, Parent } from '@nestjs/graphql';
 import { PostsService } from './posts.service';
 import { Post } from './entities/post.entity';
 import { CreatePostInput } from './dto/create-post.input';
 import { UpdatePostInput } from './dto/update-post.input';
+import { User } from './entities/user.entity';
 
 @Resolver(() => Post)
 export class PostsResolver {
@@ -36,5 +37,10 @@ export class PostsResolver {
   @Mutation(() => Post)
   removePost(@Args('id') id: string) {
     return this.postsService.remove(id);
+  }
+
+  @ResolveField(() => User)
+  user(@Parent() post: Post): unknown{
+    return {__typename: 'User', id: post.user};
   }
 }

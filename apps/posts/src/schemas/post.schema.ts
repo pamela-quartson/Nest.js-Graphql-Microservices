@@ -12,6 +12,9 @@ export class Post extends AbstractDocument{
     @Prop()
     likes: number;
 
+    @Prop()
+    author: string;
+
 }
 
 export const PostSchema = SchemaFactory.createForClass(Post);

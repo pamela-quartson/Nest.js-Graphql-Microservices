@@ -6,4 +6,6 @@ export class CreatePostInput {
   title: string;
   @Field()
   text: string;
+  @Field()
+  author: string;
 }

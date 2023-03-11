@@ -29,4 +29,11 @@ export class PostsService {
   remove(id: string) {
     return this.postRepository.findOneAndDelete({_id: id});
   }
+
+  async forAuthor(id: string){
+    const author = await this.postRepository.findAll({author: id})
+    console.log(author);
+    
+    return author;
+  }
 }

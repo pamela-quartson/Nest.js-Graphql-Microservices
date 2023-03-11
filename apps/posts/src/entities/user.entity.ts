@@ -1,17 +1,12 @@
 import { ObjectType, Field, Directive, ID } from '@nestjs/graphql';
+import { Post } from './post.entity';
 
 @ObjectType()
 @Directive('@key(fields: "_id")')
 export class User {
-  @Field(()=> ID)
+  @Field(() => ID)
   _id: string;
 
-  @Field()
-  full_name: string;
-
-  @Field()
-  email: string;
-
-  @Field()
-  password: string;
+  @Field(() => [Post])
+  posts?: Post[]
 }

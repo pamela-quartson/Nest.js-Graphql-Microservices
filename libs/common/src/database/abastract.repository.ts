@@ -6,6 +6,7 @@ import {
   UpdateQuery,
   SaveOptions,
   Connection,
+  ProjectionType,
 } from 'mongoose';
 import { AbstractDocument } from './abstract.schema';
 
@@ -34,7 +35,7 @@ export abstract class AbstractRepository<TDocument extends AbstractDocument> {
     return doc;
   }
 
-  async findOne(filterQuery: FilterQuery<TDocument>, projections: unknown): Promise<TDocument> {
+  async findOne(filterQuery: FilterQuery<TDocument>, projections?: ProjectionType<TDocument>): Promise<TDocument> {
     const document = await this.model.findOne(filterQuery, projections, { lean: true });
 
     if (!document) {
@@ -73,14 +74,8 @@ export abstract class AbstractRepository<TDocument extends AbstractDocument> {
     });
   }
 
-  async find(filterQuery?: FilterQuery<TDocument>) {
-    const users = await this.model.find(filterQuery, {}, { lean: true });
-    
-    return users;
-  }
-
-  async findAll(projections: unknown) {
-    return await this.model.find({}, projections);
+  async findAll(filterQuery?: FilterQuery<TDocument>, projections?: ProjectionType<TDocument>) {
+    return await this.model.find(filterQuery, projections, { lean: true });
   }
 
   async findOneAndDelete(filterQuery: FilterQuery<TDocument>) {

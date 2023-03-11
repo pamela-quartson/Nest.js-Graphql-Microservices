@@ -1,4 +1,4 @@
-import { BadRequestException, ConflictException, Injectable } from '@nestjs/common';
+import { ConflictException, Injectable } from '@nestjs/common';
 import { CreateUserInput } from './dto/create-user.input';
 import { UpdateUserInput } from './dto/update-user.input';
 import { User } from './schemas/user.schema';
@@ -21,12 +21,12 @@ export class UsersService {
     try {
         user = await this.userRepository.findOne({email: createUserInput.email}, {password: 0});
     } catch (err) {
-        throw new BadRequestException(err.message, { cause: err, description: err.message })
-    }
+        // throw new BadRequestException(err.message, { cause: err, description: err.message })
+    }  
     if (user) {
       throw new ConflictException('Email already exists.', { cause: new Error('Email already exists.'), description: 'Email already exists.' })
     }
-}
+ }
 
   findAll() {
     return this.userRepository.findAll({password: 0});

@@ -9,6 +9,7 @@ import { DatabaseModule } from '@app/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { PostSchema, Post } from './schemas/post.schema';
 import { PostRepository } from './posts.repository';
+import { UsersResolver } from './users.resolver';
 
 @Module({
   imports: [
@@ -26,6 +27,6 @@ import { PostRepository } from './posts.repository';
     DatabaseModule,
     MongooseModule.forFeature([{name: Post.name, schema: PostSchema}])
   ],
-  providers: [PostsResolver, PostsService, PostRepository]
+  providers: [PostsResolver, PostsService, PostRepository, UsersResolver]
 })
 export class PostsModule {}
