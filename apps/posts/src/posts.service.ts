@@ -31,9 +31,6 @@ export class PostsService {
   }
 
   async forAuthor(id: string){
-    const author = await this.postRepository.findAll({author: id})
-    console.log(author);
-    
-    return author;
+    return await this.postRepository.findAll({author: id})
   }
 }

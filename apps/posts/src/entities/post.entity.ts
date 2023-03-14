@@ -14,6 +14,9 @@ export class Post {
 
   @Field()
   likes: number;
+  
+  @Field()
+  author: string;
 
   @Field(() => User)
   user?: User;

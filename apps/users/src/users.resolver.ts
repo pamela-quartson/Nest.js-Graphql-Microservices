@@ -34,7 +34,12 @@ export class UsersResolver {
   }
 
   @ResolveReference()
-  resolveReference(reference: {__typename: string, id: string}){
-    return this.usersService.findOne(reference.id);
+  async resolveReference(reference: {__typename: string, id: string}){
+    console.log('In here');
+    
+    console.log(reference.id);
+    // console.log(this.usersService.findOne(reference.id));
+    
+    return await this.usersService.findOne(reference.id);
   }
 }

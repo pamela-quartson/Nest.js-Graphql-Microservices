@@ -29,7 +29,7 @@ export class UsersService {
  }
 
   findAll() {
-    return this.userRepository.findAll({password: 0});
+    return this.userRepository.findAll({},{password: 0});
   }
 
   findOne(id: string) {

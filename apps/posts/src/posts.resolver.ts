@@ -41,6 +41,6 @@ export class PostsResolver {
 
   @ResolveField(() => User)
   user(@Parent() post: Post): unknown{
-    return {__typename: 'User', id: post.user};
+    return {__typename: 'User', id: post.author};
   }
 }
